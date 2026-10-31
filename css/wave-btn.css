@@ -1,0 +1,11 @@
+/* Round "sound wave" button to the left of "Let's talk" (inspired by the Lusion header) */
+.top .btns{align-items:center}
+.btn-wave{--x:50%;--y:50%;position:relative;isolation:isolate;overflow:hidden;width:36px;height:36px;padding:0;border:1px solid rgba(255,255,255,.1);border-radius:50%;background:rgba(255,255,255,.1);color:#e8e9f2;cursor:pointer;display:grid;place-items:center;transition:color .3s ease,border-color .3s ease;-webkit-tap-highlight-color:transparent}
+.btn-wave .bw-fill{position:absolute;inset:0;z-index:0;border-radius:50%;background:#1f22ff;pointer-events:none;clip-path:circle(0px at var(--x) var(--y));transition:clip-path .6s cubic-bezier(.2,.8,.2,1)}
+.btn-wave.on .bw-fill,.btn-wave:focus-visible .bw-fill{clip-path:circle(60px at var(--x) var(--y))}
+.btn-wave.on,.btn-wave:focus-visible{color:#fff;border-color:transparent;outline:none}
+.btn-wave .bw-svg{position:relative;z-index:1;width:22px;height:22px;display:block;overflow:visible;pointer-events:none}
+.btn-wave .bw-path{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.btn-wave[aria-pressed="false"]{color:rgba(232,233,242,.45)}
+
+@media(max-width:480px){.btn-wave{width:34px;height:34px}.top .btns{gap:6px}}

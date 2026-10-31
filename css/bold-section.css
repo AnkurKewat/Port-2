@@ -1,0 +1,44 @@
+/* "Bold ideas" scroll section: blue pipe + reel card (Lusion-style) */
+:root{--bg:#000;--ink:#fff;--mut:#a9abb9}
+html,body{margin:0;background:var(--bg);color:var(--ink)}
+.site{font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;text-align:left}
+.top{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:flex-start;gap:2rem;padding:18px clamp(14px,2.2vw,32px);pointer-events:none}
+.top>*{pointer-events:auto}
+.top b{font-weight:500;letter-spacing:.02em;font-size:1.05rem}
+.top p{margin:0;max-width:30ch;font-size:.95rem;line-height:1.25}
+.top .btns{display:flex;gap:8px;margin-left:auto}
+.top .btn{padding:.6rem 1rem;border-radius:99px;background:#1c1d25;color:#fff;font-size:.72rem;font-weight:500;text-transform:uppercase;letter-spacing:.04em}
+.top .btn.dark{background:#fff;color:#000}
+.top .btn{cursor:pointer;transition:background-color .3s ease,color .3s ease}
+.top .btn.dark:hover{background:#1f22ff;color:#fff}
+.hero{padding:110px clamp(14px,2.2vw,32px) 18px}
+.hint{display:flex;justify-content:space-between;margin:14px auto 0;width:min(1500px,94vw);font:400 .66rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase}
+#bold{position:relative;height:480vh}
+#bold .stage{position:sticky;top:0;height:100vh;overflow:hidden}
+#bold canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+#bold .head{position:absolute;left:clamp(14px,2.2vw,32px);top:max(72px,11vh);margin:0;z-index:3;font-weight:500;font-size:clamp(2.6rem,6.4vw,7.2rem);line-height:1.02;letter-spacing:-.035em;will-change:transform,opacity}
+#bold .head span{display:block}#bold .head .l1-mask{overflow:hidden;padding:.1em 0;margin:-.1em 0}#bold .head .l1-shift{will-change:transform}#bold .head .l1{margin-left:17vw}
+#bold .copy{position:absolute;left:63vw;top:41vh;width:min(30vw,430px);z-index:3;font-size:clamp(.78rem,.95vw,.95rem);line-height:1.45;color:var(--mut);will-change:transform,opacity}
+#bold .copy p{margin:0}
+#bold .pill{display:inline-flex;align-items:center;gap:.5rem;margin-top:1.1rem;padding:.6rem .95rem;border-radius:99px;background:#fff;color:#000;font:500 .68rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+#bold .pill i{width:6px;height:6px;border-radius:50%;background:currentColor}
+#bold .bold-hint{position:absolute;left:clamp(14px,2.2vw,32px);right:clamp(14px,2.2vw,32px);bottom:24px;z-index:3;display:flex;justify-content:space-between;font:400 .66rem ui-monospace,Menlo,Consolas,monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45);pointer-events:none;will-change:opacity}
+#bold .reel{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;gap:clamp(1rem,3vw,3.2rem);width:100%;background:none;border:0;padding:0;color:#fff;font:400 clamp(2.4rem,6.2vw,7rem)/1 "Inter Tight",system-ui,sans-serif;letter-spacing:.01em;opacity:0;pointer-events:none;cursor:pointer}
+#bold .reel.on{pointer-events:auto}
+#bold .reel b{display:grid;place-items:center;width:clamp(64px,7.2vw,120px);height:clamp(40px,4.6vw,76px);border-radius:999px;background:#fff}
+#bold .reel b::after{content:"";margin-left:6px;border-left:clamp(14px,1.6vw,26px) solid #111;border-top:clamp(9px,1vw,16px) solid transparent;border-bottom:clamp(9px,1vw,16px) solid transparent}
+.reel-video{position:absolute;width:2px;height:2px;opacity:0;pointer-events:none}
+.next{padding:16vh clamp(14px,2.2vw,32px) 6vh}
+.next h3{margin:0;font-weight:500;font-size:clamp(2.4rem,5vw,5.5rem);letter-spacing:-.03em}
+.tech-stack-section{padding:0 clamp(14px,2.2vw,32px) 14vh}
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(5,5,10,.88);display:none;place-items:center}
+.lightbox.open{display:grid}
+.lightbox video{width:min(92vw,1100px);border-radius:18px;background:#000}
+.lightbox button{position:absolute;top:18px;right:22px;border:0;border-radius:99px;padding:.6rem 1.1rem;font:500 .8rem system-ui,sans-serif;background:#fff;cursor:pointer}
+@media(max-width:800px){#bold .head .l1{margin-left:8vw}#bold .copy{left:8vw;top:48vh;width:84vw}.top p{display:none}}
+
+/* ---------- responsive: all screen sizes ---------- */
+html,body{overflow-x:clip}
+#bold .stage{height:100vh;height:100svh}
+@media(max-width:480px){.top{padding:12px 14px}.top .btn{padding:.55rem .85rem;font-size:.68rem}.lightbox video{width:96vw;border-radius:12px}}
+@media(max-height:520px) and (orientation:landscape){#bold .head{font-size:clamp(2rem,9vh,3.4rem);top:max(56px,9vh)}#bold .copy{top:36vh}}

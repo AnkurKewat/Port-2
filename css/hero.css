@@ -1,0 +1,455 @@
+/* =====================================================================
+   HERO SECTION: Agentic SaaS Architecture / Ankur Kewat
+   Matches the portfolio hero layout, styling, and exact positioning
+   ===================================================================== */
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.85);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(0.85);
+    box-shadow: 0 0 4px 1px rgba(255, 255, 255, 0.35);
+  }
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg, #000);
+  padding: clamp(90px, 12vh, 130px) clamp(16px, 3.5vw, 54px) clamp(60px, 9vh, 90px);
+  box-sizing: border-box;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.hero-inner {
+  width: 100%;
+  max-width: 1360px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.85fr);
+  align-items: center;
+  gap: clamp(2.5rem, 5vw, 5.5rem);
+}
+
+/* ---------- Left column: Hero content ---------- */
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Badge / Pill */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #a1a1aa;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 1.6rem;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  user-select: none;
+}
+
+/* Title */
+.hero-title {
+  margin: 0 0 1.25rem 0;
+  color: #ffffff;
+  font-family: "Inter Tight", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+/* Lead text */
+.hero-lead {
+  margin: 0 0 1.15rem 0;
+  color: #cfd2da;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(1.02rem, 1.3vw, 1.22rem);
+  font-weight: 400;
+  line-height: 1.52;
+  max-width: 580px;
+}
+
+.hero-lead strong {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.hero-status-dot {
+  display: inline-block;
+  width: 7.5px;
+  height: 7.5px;
+  border-radius: 50%;
+  background: #ffffff;
+  margin-left: 9px;
+  vertical-align: middle;
+  animation: pulse-dot 2.6s infinite ease-in-out;
+}
+
+/* Secondary description */
+.hero-desc {
+  margin: 0 0 2.2rem 0;
+  color: #7d8194;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.58;
+  max-width: 530px;
+}
+
+/* Buttons */
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 2.2rem;
+}
+
+.hero-btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #060608;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: all 0.22s ease;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.hero-btn-primary svg {
+  transition: transform 0.22s ease;
+}
+
+.hero-btn-primary:hover {
+  background: #f1f2f6;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 255, 255, 0.18);
+}
+
+.hero-btn-primary:hover svg {
+  transform: translateX(3px);
+}
+
+.hero-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 22px;
+  border-radius: 10px;
+  background: rgba(18, 19, 24, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  transition: all 0.22s ease;
+}
+
+.hero-btn-secondary:hover {
+  background: rgba(30, 32, 40, 0.95);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+}
+
+/* Tech tags */
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  max-width: 560px;
+}
+
+.hero-tag {
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  color: #9ea1b0;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  font-weight: 400;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.hero-tag:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* ---------- Right column: Profile Image ---------- */
+@keyframes float-profile {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.hero-profile-wrap {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-right: 5rem;
+}
+
+.hero-profile-card {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  border-radius: 22px;
+  overflow: hidden;
+  animation: float-profile 5s ease-in-out infinite;
+  box-shadow:
+    0 24px 50px -12px rgba(0, 0, 0, 0.85),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 80px -20px rgba(129, 140, 248, 0.15);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.hero-profile-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 32px 64px -16px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 0 100px -20px rgba(129, 140, 248, 0.25);
+}
+
+.hero-profile-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 22px;
+  filter: grayscale(100%) contrast(1.1) brightness(0.92);
+  transition: filter 0.4s ease;
+}
+
+.hero-profile-card:hover .hero-profile-img {
+  filter: grayscale(100%) contrast(1.15) brightness(1);
+}
+
+.hero-profile-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  background: linear-gradient(
+    180deg,
+    transparent 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+}
+
+/* ---------- Bottom right Commands Pill ---------- */
+.hero-command-pill {
+  position: absolute;
+  right: clamp(16px, 3.5vw, 48px);
+  bottom: clamp(16px, 3vh, 32px);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 13px;
+  background: rgba(14, 15, 19, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  color: #9ca3af;
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.hero-command-pill:hover {
+  background: #181921;
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.cmd-icon {
+  font-weight: 600;
+  color: #818cf8;
+}
+
+.cmd-kbd {
+  display: inline-block;
+  padding: 2px 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  font-size: 0.64rem;
+  line-height: 1;
+  color: #d1d5db;
+}
+
+/* ---------- Command Palette Dialog / Modal ---------- */
+.cmd-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cmd-modal-backdrop.open {
+  display: flex;
+}
+
+.cmd-modal {
+  width: 100%;
+  max-width: 520px;
+  background: #0d0e12;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  animation: cmd-fade 0.2s ease;
+}
+
+@keyframes cmd-fade {
+  from { opacity: 0; transform: scale(0.96) translateY(-10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.cmd-search-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cmd-search-wrap svg {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.cmd-search-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+.cmd-search-input::placeholder {
+  color: #64748b;
+}
+
+.cmd-list {
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.cmd-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #d1d5db;
+  font-family: "Inter Tight", system-ui, sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.cmd-item:hover, .cmd-item.active {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.cmd-item-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cmd-item-badge {
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.cmd-modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  background: rgba(255, 255, 255, 0.02);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  font-family: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+  font-size: 0.7rem;
+  color: #64748b;
+}
+
+/* Responsive adjustments */
+@media (max-width: 960px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  
+  .hero-profile-wrap {
+    justify-content: center;
+  }
+  
+  .hero-profile-card {
+    max-width: 320px;
+  }
+
+  .hero-command-pill {
+    position: static;
+    margin-top: 2rem;
+    align-self: flex-start;
+  }
+}
+
+/* ---------- Pixelised profile photo (drawn by js/pixel-profile.js) ---------- */
+.hero-profile-px{position:absolute;inset:0;width:100%;height:100%;display:block;border-radius:22px}
+.hero-profile-card.px-ready .hero-profile-img{visibility:hidden}

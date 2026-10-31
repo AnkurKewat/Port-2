@@ -1,0 +1,50 @@
+/* Hero text + buttons: creative effects (see js/hero-fx.js) */
+.hero-title .w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:.08em .04em .16em;margin:-.08em -.04em -.16em}
+.hero-title .ch{display:inline-block;will-change:transform}
+.fx-w{display:inline-block;will-change:transform,opacity,filter}
+/* the highlighted phrase gets a gradient underline that draws itself in */
+.hero-lead strong{background:linear-gradient(90deg,#6d8bff,#00d8ff,#27f0b0) no-repeat 0 100%/0% 2px;padding-bottom:3px;-webkit-box-decoration-break:clone;box-decoration-break:clone;transition:background-size 1.3s cubic-bezier(.16,1,.3,1) 1.6s}
+.hero-section.fx-in .hero-lead strong{background-size:100% 2px}
+
+/* buttons: transform is driven by JS (magnetic spring), so it must not be transitioned */
+.hero-btn-primary,.hero-btn-secondary{position:relative;isolation:isolate;overflow:hidden;will-change:transform;transition:background-color .25s ease,border-color .25s ease,box-shadow .3s ease,color .25s ease!important}
+.hero-btn-primary:hover,.hero-btn-secondary:hover{transform:none}
+.hero-btn-primary>span,.hero-btn-secondary>span,.hero-btn-primary>svg,.hero-btn-secondary>svg{position:relative;z-index:1}
+.hero-btn-primary:hover{box-shadow:0 10px 34px -6px rgba(90,110,255,.55)}
+.hero-btn-secondary:hover{box-shadow:0 10px 34px -10px rgba(0,216,255,.4)}
+.fx-glow{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:0;transition:opacity .3s ease;background:radial-gradient(130px circle at var(--bx,50%) var(--by,50%),rgba(110,130,255,.55),transparent 70%)}
+.hero-btn-secondary .fx-glow{background:radial-gradient(130px circle at var(--bx,50%) var(--by,50%),rgba(0,216,255,.3),transparent 70%)}
+a:hover>.fx-glow{opacity:1}
+.fx-shine{position:absolute;top:0;bottom:0;left:-60%;width:40%;z-index:0;pointer-events:none;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg)}
+.hero-btn-primary:hover .fx-shine{left:130%;transition:left .85s cubic-bezier(.2,.7,.2,1)}
+.hero-btn-primary:hover svg{animation:fxNudge .9s ease-in-out infinite}
+@keyframes fxNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+.hero-btn-secondary:hover svg{animation:fxWiggle .7s ease-in-out}
+@keyframes fxWiggle{0%{transform:rotate(0)}25%{transform:rotate(-14deg) scale(1.1)}60%{transform:rotate(10deg) scale(1.1)}100%{transform:rotate(0)}}
+/* spinning light that runs around the Contact Me border on hover */
+.hero-btn-secondary::before{content:"";position:absolute;inset:-70%;z-index:-2;opacity:0;transition:opacity .3s ease;background:conic-gradient(from 0deg,transparent 0 68%,#00d8ff 84%,#4f56ff 100%);animation:fxSpin 2.4s linear infinite}
+.hero-btn-secondary::after{content:"";position:absolute;inset:1px;z-index:-1;border-radius:inherit;background:rgba(14,15,20,.97)}
+.hero-btn-secondary:hover::before{opacity:1}
+@keyframes fxSpin{to{transform:rotate(360deg)}}
+.fx-rip{position:absolute;z-index:0;width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:rgba(120,140,255,.55);pointer-events:none;animation:fxRip .7s ease-out forwards}
+.hero-btn-secondary .fx-rip{background:rgba(0,216,255,.4)}
+@keyframes fxRip{to{transform:scale(26);opacity:0}}
+.hero-tag{will-change:transform,opacity}
+@media(prefers-reduced-motion:reduce){.hero-btn-secondary::before,.hero-btn-primary:hover svg{animation:none}}
+
+/* automatic lite mode (js/core.js switches it on when the page runs below ~35 fps) */
+.lite .stat-card,.lite .exp-card,.lite .cn-card{box-shadow:none!important}
+.lite .sk-star,.lite .hero-profile-card{animation:none!important}
+.lite .hero-btn-secondary::before{animation:none!important}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){.hero-profile-wrap{margin-right:0}.hero-inner{gap:2.2rem}.hero-section{min-height:auto}}
+@media(max-width:600px){
+  .hero-section{padding:92px 18px 56px}
+  .hero-lead{font-size:1rem}.hero-desc{font-size:.9rem}
+  .hero-actions{width:100%;gap:10px}
+  .hero-btn-primary,.hero-btn-secondary{flex:1 1 140px;justify-content:center;padding:12px 16px}
+  .hero-profile-card{max-width:240px}
+  .hero-tags{gap:7px}.hero-tag{font-size:.72rem;padding:5px 11px}
+}
+@media(max-height:520px) and (orientation:landscape){.hero-section{padding-top:84px;padding-bottom:40px}}

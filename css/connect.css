@@ -1,0 +1,34 @@
+/* "Let's Build Something." connect section: WebGL particle knot + spring cards */
+#connect{position:relative;min-height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:clamp(80px,14vh,150px) clamp(16px,4vw,48px) 0;font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff}
+#connect::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:radial-gradient(55% 50% at 50% 42%,rgba(0,0,0,.78),transparent 78%)}
+.cn-gl{position:absolute;inset:0;width:100%;height:100%;display:block;pointer-events:none;z-index:0}
+.cn-inner{position:relative;z-index:2;width:min(1120px,100%);margin:0 auto;text-align:center}
+.cn-kicker{margin:0;font:500 .85rem "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:.2em;text-transform:uppercase;color:#9a9dab;opacity:0;will-change:letter-spacing,opacity}
+.cn-title{margin:.35rem 0 1.35rem;font-weight:600;font-size:clamp(2.6rem,6.2vw,5.4rem);line-height:1.08;letter-spacing:-.035em}
+.cn-title .w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:.08em .03em .18em;margin:-.08em -.03em -.18em}
+.cn-title .ch{display:inline-block;will-change:transform}
+.cn-sub{max-width:640px;margin:0 auto clamp(36px,6vh,56px);font-weight:300;font-size:clamp(1rem,1.3vw,1.2rem);line-height:1.6;color:#8d90a0}
+.cn-sub .fx{display:inline-block;will-change:transform,opacity,filter}
+.cn-cards{display:flex;justify-content:center;flex-wrap:wrap;gap:clamp(14px,2vw,28px)}
+.cn-card{--c:#00d8ff;position:relative;flex:1 1 0;min-width:240px;max-width:360px;min-height:210px;box-sizing:border-box;padding:28px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;text-decoration:none;color:#fff;border-radius:28px;background:rgba(14,14,17,.9);border:1px solid rgba(255,255,255,.09);box-shadow:0 24px 50px -26px rgba(0,0,0,.95);opacity:0;will-change:transform,opacity;transition:border-color .35s ease,background-color .35s ease}
+.cn-card:nth-child(2){--c:#6d8bff}.cn-card:nth-child(3){--c:#27f0b0}
+.cn-card:hover,.cn-card:focus-visible{border-color:color-mix(in srgb,var(--c) 40%,transparent);background:rgba(16,16,22,.72);outline:none}
+.cn-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--c) 22%,transparent),transparent 62%);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.cn-card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:radial-gradient(260px circle at var(--mx,50%) var(--my,50%),var(--c),transparent 65%);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);opacity:0;transition:opacity .35s ease;pointer-events:none}
+.cn-card:hover::before,.cn-card:hover::after,.cn-card:focus-visible::before,.cn-card:focus-visible::after{opacity:1}
+.cn-icon{display:grid;place-items:center;width:48px;height:48px;border-radius:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);color:#b4b7c6;transition:background-color .3s ease,color .3s ease,box-shadow .3s ease;will-change:transform}
+.cn-icon svg{width:22px;height:22px;display:block}
+.cn-card:hover .cn-icon{background:color-mix(in srgb,var(--c) 22%,transparent);color:#fff;box-shadow:0 0 26px color-mix(in srgb,var(--c) 55%,transparent)}
+.cn-name{margin:1rem 0 .35rem;font-weight:600;font-size:1.06rem;will-change:transform,opacity}
+.cn-handle{margin:0;font:400 .82rem/1.4 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;color:#7d8090;word-break:break-all;will-change:transform,opacity}
+.cn-arrow{margin-top:1.1rem;display:inline-flex;color:#6b6e7d;will-change:transform,opacity;transition:color .3s ease}
+.cn-arrow svg{width:18px;height:18px;display:block;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.cn-card:hover .cn-arrow{color:var(--c)}
+.cn-card:hover .cn-arrow svg{transform:translateX(8px)}
+.cn-foot{position:relative;z-index:2;width:min(1120px,100%);margin:clamp(60px,12vh,120px) auto 0;padding:22px 0 26px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.07);font:400 .72rem "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;letter-spacing:.1em;text-transform:uppercase;color:#5d6070}
+@media(max-width:760px){.cn-card{flex-basis:100%;max-width:none;min-height:180px}}
+
+/* ---------- responsive ---------- */
+#connect{min-height:100vh;min-height:100svh}
+@media(max-width:760px){#connect{padding-top:clamp(70px,12vh,110px)}.cn-card{flex-basis:100%;max-width:none;min-height:150px;padding:20px 18px}.cn-sub{margin-bottom:28px}.cn-foot{flex-direction:column;align-items:center;text-align:center;gap:6px}}
+@media(max-height:520px) and (orientation:landscape){#connect{min-height:auto;padding-bottom:30px}.cn-card{min-height:150px}}
