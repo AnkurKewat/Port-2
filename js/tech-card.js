@@ -208,6 +208,18 @@
       pick();
     }
   }, { passive: true });
+  card.addEventListener("pointerdown", e => {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, cam);
+    if (ray.ray.intersectPlane(plane, hit)) {
+      ptr.lx = hit.x; ptr.ly = hit.y; smoothUV.set((ndc.x + 1) / 2, (ndc.y + 1) / 2); lastUV.copy(smoothUV);
+      ptr.x = hit.x; ptr.y = hit.y; ptr.on = true; tgtUV.set((ndc.x + 1) / 2, (ndc.y + 1) / 2);
+      pick();
+    }
+  }, { passive: true });
+  card.addEventListener("pointerup", () => { ptr.on = false; held = null; card.style.cursor = "default"; });
+  card.addEventListener("pointercancel", () => { ptr.on = false; held = null; card.style.cursor = "default"; });
   card.addEventListener("pointerleave", () => { ptr.on = false; held = null; card.style.cursor = "default"; });
 
   /* ---------- physics ---------- */

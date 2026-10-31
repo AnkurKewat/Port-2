@@ -42,6 +42,8 @@
       el.style.setProperty("--mx", nx * 100 + "%"); el.style.setProperty("--my", ny * 100 + "%");
     });
     el.addEventListener("pointerleave", () => { it.hot = false; it.tx = it.ty = it.tox = it.toy = 0; });
+    el.addEventListener("pointercancel", () => { it.hot = false; it.tx = it.ty = it.tox = it.toy = 0; });
+    el.addEventListener("pointerup", () => { it.hot = false; it.tx = it.ty = it.tox = it.toy = 0; });
     return it;
   });
 

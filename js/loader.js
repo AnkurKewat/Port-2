@@ -15,9 +15,25 @@
   let progress = 0, finished = false;
   const nudge = d => { progress = Math.max(0, Math.min(100, progress + d)); };
   document.addEventListener("wheel", e => nudge(e.deltaY * .045), { passive: true });      // scroll down = more progress, scroll up = less
-  let ty = null;                                                                           // touch swipes and keys work too
-  addEventListener("touchstart", e => { ty = e.touches[0].clientY; }, { passive: true });
-  addEventListener("touchmove", e => { if (ty == null) return; const y = e.touches[0].clientY; nudge((ty - y) * .22); ty = y; }, { passive: true });
+  let ty = null, touchStartY = null, hasMoved = false;                                    // touch swipes, taps and keys work too
+  addEventListener("touchstart", e => {
+    if (e.touches && e.touches[0]) {
+      touchStartY = ty = e.touches[0].clientY;
+      hasMoved = false;
+    }
+  }, { passive: true });
+  addEventListener("touchmove", e => {
+    if (ty == null || !e.touches || !e.touches[0]) return;
+    const y = e.touches[0].clientY;
+    const dy = ty - y;
+    if (Math.abs(dy) > 3) hasMoved = true;
+    nudge(dy * .32);
+    ty = y;
+  }, { passive: true });
+  addEventListener("touchend", () => {
+    if (!hasMoved && touchStartY !== null) nudge(15);
+    ty = touchStartY = null;
+  }, { passive: true });
   addEventListener("keydown", e => { const d = { ArrowDown: 4, PageDown: 15, " ": 10, ArrowUp: -4, PageUp: -15 }[e.key]; if (d) nudge(d); });
   /* ---------- Visual A: Spline scene ---------- */
   function startSpline() {
@@ -36,7 +52,7 @@
   /* ---------- Visual B: big pipelines crawling across the screen ----------
      right -> left, top -> down, plus a double spiral winding into the centre.
      Each pipe is a "snake": a head crawls along it with the tail following. */
-  let draw = () => {}, dispose = () => {}, burst = () => {};
+  let draw = () => { }, dispose = () => { }, burst = () => { };
   function startThree() {
     const V = (x, y, z = 0) => new THREE.Vector3(x, y, z);
     const clamp01 = x => Math.min(Math.max(x, 0), 1);
@@ -121,8 +137,10 @@
       const capMat = mat;
       const c1 = new THREE.Mesh(capG, capMat), c2 = new THREE.Mesh(capG, capMat);
       grp.add(mesh, c1, c2);
-      pipes.push({ mesh, c1, c2, path, segs, step: rad * 6, L0: o.L0 || .25 + Math.random() * .15,
-        speed: (o.speed || .07 + Math.random() * .08), flow: o.flow ?? (Math.random() < .5 ? -1 : 1), response: o.response || (.75 + Math.random() * 1.1), ph: Math.random(), born: pipes.length * .15 });
+      pipes.push({
+        mesh, c1, c2, path, segs, step: rad * 6, L0: o.L0 || .25 + Math.random() * .15,
+        speed: (o.speed || .07 + Math.random() * .08), flow: o.flow ?? (Math.random() < .5 ? -1 : 1), response: o.response || (.75 + Math.random() * 1.1), ph: Math.random(), born: pipes.length * .15
+      });
     }
 
     function buildPipes() {
@@ -240,4 +258,5 @@
       loader.classList.add("finishing");
       reveal();
     }, 500);
-  }})();
+  }
+})();

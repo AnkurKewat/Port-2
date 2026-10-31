@@ -22,4 +22,10 @@
 
 /* ---------- responsive ---------- */
 @media(max-width:700px){#skills{padding-top:36px}.sk-band{padding:12px 0}.sk-star{margin:0 .45em}}
+@media(max-width:600px){
+  #skills{padding:clamp(28px, 5vh, 52px) 0}
+  .sk-band{padding:8px 0}
+  .sk-word{font-size:clamp(1.35rem, 5.2vw, 2.4rem);line-height:1.2}
+  .sk-star{font-size:clamp(1.35rem, 5.2vw, 2.4rem);margin:0 .3em}
+}
 @media(hover:none){.sk-tip{display:none}}

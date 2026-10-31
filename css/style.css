@@ -87,6 +87,28 @@ body.home-ready #cards-bg{opacity:0;pointer-events:none}
   opacity:0 !important;
   transform:translateX(-50%) translateY(10px) !important;
 }
+@media (max-width:600px){
+  .cards-scroll-hint{
+    width:max-content;
+    max-width:90vw;
+    padding:.45rem .85rem;
+    font-size:.68rem;
+    gap:.4rem;
+    bottom:max(1.2rem, env(safe-area-inset-bottom, 1.2rem));
+  }
+  .meter{
+    left:1rem;
+    right:1rem;
+    bottom:max(1.2rem, env(safe-area-inset-bottom, 1.2rem));
+  }
+  .count{
+    font-size:clamp(2.8rem, 14vw, 5rem);
+  }
+  .label{
+    font-size:.82rem;
+    max-width:14ch;
+  }
+}
 @keyframes cardsHintIn{
   from{opacity:0;transform:translateX(-50%) translateY(10px)}
   to{opacity:1;transform:translateX(-50%) translateY(0)}

@@ -206,18 +206,28 @@
   }
   window.addEventListener("wheel", onWheel, { passive: true });
 
-  // Touch swipe support
-  let touchY = null;
+  // Touch swipe and tap support
+  let touchY = null, cardTouchStartY = null, cardTouchMoved = false;
   window.addEventListener("touchstart", e => {
-    if (e.touches && e.touches.length) touchY = e.touches[0].clientY;
+    if (e.touches && e.touches.length) {
+      cardTouchStartY = touchY = e.touches[0].clientY;
+      cardTouchMoved = false;
+    }
   }, { passive: true });
   window.addEventListener("touchmove", e => {
     if (!canScroll || touchY == null || !e.touches || !e.touches.length) return;
     const y = e.touches[0].clientY;
-    nudgeProgress((touchY - y) * 0.0022);
+    const dy = touchY - y;
+    if (Math.abs(dy) > 3) cardTouchMoved = true;
+    nudgeProgress(dy * 0.0032);
     touchY = y;
   }, { passive: true });
-  window.addEventListener("touchend", () => { touchY = null; }, { passive: true });
+  window.addEventListener("touchend", () => {
+    if (canScroll && !cardTouchMoved && cardTouchStartY !== null) {
+      nudgeProgress(0.12);
+    }
+    touchY = cardTouchStartY = null;
+  }, { passive: true });
 
   // Keyboard navigation (Arrow keys / Page keys / Space)
   window.addEventListener("keydown", e => {
@@ -286,7 +296,8 @@
     scrollHintEl = document.createElement("div");
     scrollHintEl.className = "cards-scroll-hint";
     scrollHintEl.setAttribute("aria-hidden", "true");
-    scrollHintEl.innerHTML = `<span class="hint-arrows">&#x2195;</span><span>Scroll down to explore &bull; Scroll up to reverse</span>`;
+    const isTouch = window.matchMedia("(hover: none) and (pointer: coarse)").matches || innerWidth < 768;
+    scrollHintEl.innerHTML = `<span class="hint-arrows">&#x2195;</span><span>${isTouch ? "Swipe up to explore" : "Scroll down to explore &bull; Scroll up to reverse"}</span>`;
     document.body.appendChild(scrollHintEl);
   }
 

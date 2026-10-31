@@ -1,48 +1,343 @@
 /* Professional Experience: timeline + WebGL pipe / dot field */
-#exp{position:relative;font-family:"Inter Tight",system-ui,-apple-system,"Segoe UI",sans-serif;color:#fff}
-#exp .exp-gl{position:absolute;inset:0;z-index:0;pointer-events:none}
-#exp .exp-gl-sticky{position:sticky;top:0;height:100vh}
-#exp canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
-.exp-inner{position:relative;z-index:1;width:min(1240px,92vw);margin:0 auto;padding:16vh 0 14vh}
-.exp-title{margin:0 0 clamp(48px,9vh,96px);font-weight:700;font-size:clamp(2.2rem,4.6vw,4.2rem);line-height:1.08;letter-spacing:-.035em}
-.exp-title .w{display:inline-block;white-space:nowrap;overflow:hidden;vertical-align:top;padding:.08em .02em .16em;margin:-.08em -.02em -.16em}
-.exp-title .ch{display:inline-block;will-change:transform}
-.exp-item{display:grid;grid-template-columns:minmax(110px,190px) 96px minmax(0,1fr);grid-template-areas:"date rail card";align-items:start}
-.exp-item+.exp-item{margin-top:clamp(36px,6vh,64px)}
-.exp-date{grid-area:date;text-align:right;padding:30px 6px 0 0;font:400 .95rem/1.55 "JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;color:#7b7e8c;will-change:transform,opacity}
-.exp-rail{grid-area:rail;position:relative;align-self:stretch}
-.exp-node{position:absolute;left:50%;top:40px;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;border:2px solid rgba(255,255,255,.2);transition:border-color .5s ease,box-shadow .5s ease}
-.exp-node::after{content:"";position:absolute;inset:-2px;border-radius:50%;border:2px solid var(--c,#00e8e0);opacity:0}
-.exp-item.lit .exp-node{border-color:var(--c,#00e8e0);box-shadow:0 0 0 6px color-mix(in srgb,var(--c,#00e8e0) 14%,transparent),0 0 30px color-mix(in srgb,var(--c,#00e8e0) 55%,transparent)}
-.exp-item.lit .exp-node::after{animation:expPulse 2.4s ease-out infinite}
-@keyframes expPulse{0%{opacity:.75;transform:scale(1)}100%{opacity:0;transform:scale(1.9)}}
-.exp-card{grid-area:card;position:relative;border-radius:28px;background:rgba(13,13,16,.9);border:1px solid rgba(255,255,255,.1);box-shadow:0 24px 50px -26px rgba(0,0,0,.95);opacity:0;will-change:transform,opacity;transition:border-color .5s ease}
-.exp-item.lit .exp-card{border-color:color-mix(in srgb,var(--c,#00e8e0) 30%,rgba(255,255,255,.08))}
-.exp-card::before{content:"";position:absolute;inset:0;border-radius:inherit;background:radial-gradient(360px circle at var(--mx,50%) var(--my,50%),color-mix(in srgb,var(--c,#00e8e0) 20%,transparent),transparent 62%);opacity:0;transition:opacity .35s ease;pointer-events:none}
-.exp-card.hot::before{opacity:1}
-.exp-in{position:relative;padding:clamp(22px,2.4vw,32px) clamp(20px,2.4vw,32px)}
-.exp-role{margin:0 0 .4rem;font-weight:600;font-size:clamp(1.25rem,1.7vw,1.6rem);line-height:1.2;letter-spacing:-.015em}
-.exp-co{margin:0 0 1.05rem;font-weight:600;font-size:1rem;color:#a2a5b3}
-.exp-co em{font-style:normal;font-weight:400;color:#6f7283;margin-left:.6rem;white-space:nowrap}
-.exp-desc{margin:0 0 1.5rem;max-width:62ch;font-weight:300;font-size:clamp(.92rem,1.05vw,1.02rem);line-height:1.6;color:#8d90a0}
-.exp-points{list-style:none;margin:0 0 1.5rem;padding:0;display:grid;gap:.7rem;max-width:66ch}
-.exp-points li{position:relative;padding-left:1.35rem;font-weight:300;font-size:clamp(.92rem,1.05vw,1.02rem);line-height:1.55;color:#8d90a0;will-change:transform,opacity}
-.exp-points li::before{content:"";position:absolute;left:0;top:.6em;width:7px;height:7px;border-radius:50%;background:var(--c,#00e8e0);box-shadow:0 0 10px var(--c,#00e8e0)}
-.exp-tags{display:flex;flex-wrap:wrap;gap:9px}
-.exp-tags span{padding:6px 13px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.07);font-weight:600;font-size:.76rem;color:#a8abb7;will-change:transform,opacity;transition:color .25s ease,border-color .25s ease}
-.exp-card.hot .exp-tags span{color:#fff;border-color:color-mix(in srgb,var(--c,#00e8e0) 45%,transparent)}
-@media(max-width:760px){
-  .exp-item{grid-template-columns:48px minmax(0,1fr);grid-template-areas:"rail date" "rail card"}
-  .exp-date{text-align:left;padding:8px 0 12px 4px;font-size:.82rem}
-  .exp-node{top:19px;width:26px;height:26px;margin:-13px 0 0 -13px}
+#exp {
+  position: relative;
+  font-family: "Inter Tight", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color: #fff
+}
+
+#exp .exp-gl {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none
+}
+
+#exp .exp-gl-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh
+}
+
+#exp canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block
+}
+
+.exp-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, 92vw);
+  margin: 0 auto;
+  padding: 16vh 0 14vh
+}
+
+.exp-title {
+  margin: 0 0 clamp(48px, 9vh, 96px);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 4.6vw, 4.2rem);
+  line-height: 1.08;
+  letter-spacing: -.035em
+}
+
+.exp-title .w {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: top;
+  padding: .08em .02em .16em;
+  margin: -.08em -.02em -.16em
+}
+
+.exp-title .ch {
+  display: inline-block;
+  will-change: transform
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: minmax(110px, 190px) 96px minmax(0, 1fr);
+  grid-template-areas: "date rail card";
+  align-items: start
+}
+
+.exp-item+.exp-item {
+  margin-top: clamp(36px, 6vh, 64px)
+}
+
+.exp-date {
+  grid-area: date;
+  text-align: right;
+  padding: 30px 6px 0 0;
+  font: 400 .95rem/1.55 "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color: #7b7e8c;
+  will-change: transform, opacity
+}
+
+.exp-rail {
+  grid-area: rail;
+  position: relative;
+  align-self: stretch
+}
+
+.exp-node {
+  position: absolute;
+  left: 50%;
+  top: 40px;
+  width: 32px;
+  height: 32px;
+  margin: -16px 0 0 -16px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .2);
+  transition: border-color .5s ease, box-shadow .5s ease
+}
+
+.exp-node::after {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 50%;
+  border: 2px solid var(--c, #00e8e0);
+  opacity: 0
+}
+
+.exp-item.lit .exp-node {
+  border-color: var(--c, #00e8e0);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--c, #00e8e0) 14%, transparent), 0 0 30px color-mix(in srgb, var(--c, #00e8e0) 55%, transparent)
+}
+
+.exp-item.lit .exp-node::after {
+  animation: expPulse 2.4s ease-out infinite
+}
+
+@keyframes expPulse {
+  0% {
+    opacity: .75;
+    transform: scale(1)
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.9)
+  }
+}
+
+.exp-card {
+  grid-area: card;
+  position: relative;
+  border-radius: 28px;
+  background: rgba(13, 13, 16, .9);
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 24px 50px -26px rgba(0, 0, 0, .95);
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: border-color .5s ease
+}
+
+.exp-item.lit .exp-card {
+  border-color: color-mix(in srgb, var(--c, #00e8e0) 30%, rgba(255, 255, 255, .08))
+}
+
+.exp-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--c, #00e8e0) 20%, transparent), transparent 62%);
+  opacity: 0;
+  transition: opacity .35s ease;
+  pointer-events: none
+}
+
+.exp-card.hot::before {
+  opacity: 1
+}
+
+.exp-in {
+  position: relative;
+  padding: clamp(22px, 2.4vw, 32px) clamp(20px, 2.4vw, 32px)
+}
+
+.exp-role {
+  margin: 0 0 .4rem;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 1.7vw, 1.6rem);
+  line-height: 1.2;
+  letter-spacing: -.015em
+}
+
+.exp-co {
+  margin: 0 0 1.05rem;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #a2a5b3
+}
+
+.exp-co em {
+  font-style: normal;
+  font-weight: 400;
+  color: #6f7283;
+  margin-left: .6rem;
+  white-space: nowrap
+}
+
+.exp-desc {
+  margin: 0 0 1.5rem;
+  max-width: 62ch;
+  font-weight: 300;
+  font-size: clamp(.92rem, 1.05vw, 1.02rem);
+  line-height: 1.6;
+  color: #8d90a0
+}
+
+.exp-points {
+  list-style: none;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  display: grid;
+  gap: .7rem;
+  max-width: 66ch
+}
+
+.exp-points li {
+  position: relative;
+  padding-left: 1.35rem;
+  font-weight: 300;
+  font-size: clamp(.92rem, 1.05vw, 1.02rem);
+  line-height: 1.55;
+  color: #8d90a0;
+  will-change: transform, opacity
+}
+
+.exp-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .6em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c, #00e8e0);
+  box-shadow: 0 0 10px var(--c, #00e8e0)
+}
+
+.exp-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px
+}
+
+.exp-tags span {
+  padding: 6px 13px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .07);
+  font-weight: 600;
+  font-size: .76rem;
+  color: #a8abb7;
+  will-change: transform, opacity;
+  transition: color .25s ease, border-color .25s ease
+}
+
+.exp-card.hot .exp-tags span {
+  color: #fff;
+  border-color: color-mix(in srgb, var(--c, #00e8e0) 45%, transparent)
+}
+
+@media(max-width:760px) {
+  .exp-inner {
+    width: calc(100% - 24px);
+    padding: clamp(60px, 10vh, 100px) 0 clamp(40px, 8vh, 70px)
+  }
+
+  .exp-title {
+    font-size: clamp(1.8rem, 6.2vw, 2.9rem);
+    margin-bottom: clamp(28px, 5vh, 48px)
+  }
+
+  .exp-item {
+    grid-template-columns: 36px minmax(0, 1fr);
+    grid-template-areas: "rail date" "rail card";
+    gap: 0 6px
+  }
+
+  .exp-item+.exp-item {
+    margin-top: clamp(24px, 4vh, 40px)
+  }
+
+  .exp-date {
+    text-align: left;
+    padding: 6px 0 10px 2px;
+    font-size: .78rem
+  }
+
+  .exp-node {
+    top: 17px;
+    width: 22px;
+    height: 22px;
+    margin: -11px 0 0 -11px
+  }
+
+  .exp-card {
+    border-radius: 20px
+  }
+
+  .exp-in {
+    padding: 18px 14px
+  }
+
+  .exp-role {
+    font-size: 1.1rem
+  }
+
+  .exp-co {
+    font-size: .9rem;
+    margin-bottom: .8rem
+  }
+
+  .exp-co em {
+    display: block;
+    margin: .2rem 0 0;
+    font-size: .78rem
+  }
+
+  .exp-desc {
+    font-size: .86rem;
+    line-height: 1.52;
+    margin-bottom: 1.1rem
+  }
+
+  .exp-points {
+    gap: .55rem;
+    margin-bottom: 1.1rem
+  }
+
+  .exp-points li {
+    font-size: .85rem;
+    line-height: 1.48;
+    padding-left: 1.1rem
+  }
+
+  .exp-tags {
+    gap: 6px
+  }
+
+  .exp-tags span {
+    font-size: .68rem;
+    padding: 4px 9px;
+    border-radius: 8px
+  }
 }
 
 /* ---------- responsive ---------- */
-#exp .exp-gl-sticky{height:100vh;height:100svh}
-.exp-inner{padding-top:clamp(90px,14vh,160px)}
-@media(max-width:480px){
-  .exp-in{padding:18px 16px}.exp-role{font-size:1.12rem}.exp-co{font-size:.92rem}
-  .exp-co em{display:block;margin:.25rem 0 0}
-  .exp-tags span{font-size:.7rem;padding:5px 10px}
-  .exp-item{grid-template-columns:40px minmax(0,1fr)}
+#exp .exp-gl-sticky {
+  height: 100vh;
+  height: 100svh;
+  height: 100dvh
+}
+
+.exp-inner {
+  padding-top: clamp(70px, 12vh, 140px)
 }

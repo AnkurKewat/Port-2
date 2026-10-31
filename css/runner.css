@@ -11,7 +11,10 @@
 .sk-say.on{opacity:1;scale:1}
 .sk-say::after{content:"";position:absolute;left:var(--tail,50%);bottom:-5px;width:11px;height:11px;margin-left:-5.5px;background:#fff;border-radius:2px;transform:rotate(45deg);z-index:-1}
 .sk-say span{display:block;min-height:1.15em}
-@media(max-width:700px){.sk-run{--sh:44px}.sk-say{font-size:.72rem;padding:8px 13px}}
+@media(max-width:700px){
+  .sk-run{--sh:40px;height:clamp(80px, 11vh, 105px)}
+  .sk-say{font-size:.7rem;padding:6px 11px;max-width:calc(100vw - 28px);white-space:normal;line-height:1.24}
+}
 .sk-say.pop{animation:skPop .32s cubic-bezier(.34,1.56,.64,1)}
 @keyframes skPop{0%{scale:.82}100%{scale:1}}
 /* thinking state: thought bubble with little circles instead of a tail */
